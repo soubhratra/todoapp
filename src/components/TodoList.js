@@ -2,25 +2,24 @@ import React, {memo, useState} from 'react';
 import {List, Paper, Grid} from '@material-ui/core';
 import TodoItem from './TodoItem';
 
-const TodoList = () => {
-  const [todoList, setTodoList] = useState([{id: 1, text:'Learn React Hooks', checked:false}]);
-
-  const onItemRemove = (id) => {};
-  const onItemCheck = (id) => {};
-
-  return (
-    <Paper style={{margin:16}}>
-      <List style={{overflow:"scroll"}}>
-      {todoList && todoList.map((todo) => (
-        <TodoItem key={todo.id} 
-        todo={todo}
-        onCheckBoxToggle={() => onItemCheck(todo.id)}
-        onButtonClick={() => onItemRemove(todo.id)}/>
-      ))}
-      </List>
-    </Paper>
-    
-  )
-}
+const TodoList = memo(props => (
+  <>
+    {props.items.length > 0 && (
+      <Paper style={{ margin: 16 }}>
+        <List style={{ overflow: "scroll" }}>
+          {props.items.map((todo, idx) => (
+            <TodoItem
+              {...todo}
+              key={`TodoItem.${idx}`}
+              divider={idx !== props.items.length - 1}
+              onButtonClick={() => props.onItemRemove(idx)}
+              onCheckBoxToggle={() => props.onItemCheck(idx)}
+            />
+          ))}
+        </List>
+      </Paper>
+    )}
+  </>
+));
 
 export default TodoList;

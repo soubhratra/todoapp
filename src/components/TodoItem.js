@@ -1,21 +1,29 @@
-import React, {memo} from 'react';
-//import DeleteOutlined from '@material-ui/icons/DeleteOutlined';
-import {ListItem, Checkbox, IconButton, ListItemText, ListItemSecondaryAction} from '@material-ui/core';
+import React, { memo } from "react";
 
+import {
+  List,
+  ListItem,
+  Checkbox,
+  IconButton,
+  ListItemText,
+  ListItemSecondaryAction
+} from "@material-ui/core";
+import DeleteOutlined from "@material-ui/icons/DeleteOutlined";
 
-const TodoItem = memo(props =>
-  (<ListItem divider={props.divider}>
-    <Checkbox 
-    onClick={props.onCheckboxToggle}
-    checked={props.todo.checked}
-    disableRipple />
-    <ListItemText primary={props.todo.text}/>
+const TodoItem = memo(props => (
+  <ListItem divider={props.divider}>
+    <Checkbox
+      onClick={props.onCheckBoxToggle}
+      checked={props.checked}
+      disableRipple
+    />
+    <ListItemText primary={props.text} />
     <ListItemSecondaryAction>
-      <IconButton area-lebel="Delete Todo" onClick={props.onButtonClick}>
-        x
+      <IconButton aria-label="Delete Todo" onClick={props.onButtonClick}>
+        <DeleteOutlined />
       </IconButton>
     </ListItemSecondaryAction>
-  </ListItem>)
-)
+  </ListItem>
+));
 
 export default TodoItem;
