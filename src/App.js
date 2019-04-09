@@ -6,8 +6,9 @@ import TodoList from './components/TodoList';
 import {useInputValue} from './components/UseInputValue';
 import {useTodos} from './components/UseTodos';
 import { AgGridReact } from 'ag-grid-react';
+import {Paper} from '@material-ui/core';
 import 'ag-grid-community/dist/styles/ag-grid.css';
-import 'ag-grid-community/dist/styles/ag-theme-balham.css';
+import 'ag-grid-community/dist/styles/ag-theme-material.css';
 
 const App = (props) => {
 
@@ -20,20 +21,15 @@ const App = (props) => {
   };
 
   const columnDefs = [
-    {headerName: "Task", field: "text"},
+    {headerName: "Task", field: "text", checkboxSelection:true},
     {headerName: "Completion Date", field: "completionDate"},
-  ];
-
-  const rowData= [
-    {text: "Toyota", completionDate: "Celica"},
-    {text: "Ford", completionDate: "Mondeo" },
-    {text: "Porsche", completionDate: "Boxter"}
   ];
 
   return (
     <Layout>
       <AddTodo
         inputValue={inputValue}
+        rowSelection='single' 
         onInputChange={changeInput}
         onButtonClick={clearInputAndAddTodo}
         onInputKeyPress={event => keyInput(event, clearInputAndAddTodo)}
@@ -43,12 +39,16 @@ const App = (props) => {
         onItemCheck={idx => checkTodo(idx)}
         onItemRemove={idx => removeTodo(idx)}
       />
-       <div className="ag-theme-balham" style={{ height: '200px', width: '600px' }}>
+      {todos.length > 0 && (
+      <Paper style={{ margin: 16 }}>
+       <div className="ag-theme-material" style={{ width: "600px", height: "100px" }}>
         <AgGridReact
+            reactNext={true}
             columnDefs={columnDefs}
             rowData={todos}>
         </AgGridReact>
       </div>
+      </Paper>)}
     </Layout>
   );
 }
